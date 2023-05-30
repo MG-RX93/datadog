@@ -1,0 +1,46 @@
+{
+  "viz": "timeseries",
+  "requests": [
+      {
+          "style": {
+              "palette": "warm"
+          },
+          "type": "line",
+          "formulas": [
+              {
+                  "formula": "a"
+              }
+          ],
+          "queries": [
+              {
+                  "data_source": "logs",
+                  "name": "a",
+                  "indexes": [
+                      "*"
+                  ],
+                  "compute": {
+                      "aggregation": "avg",
+                      "metric": "@cpu_time"
+                  },
+                  "group_by": [
+                      {
+                          "facet": "@entry_point",
+                          "limit": 10,
+                          "sort": {
+                              "order": "desc",
+                              "aggregation": "avg",
+                              "metric": "@cpu_time"
+                          },
+                          "should_exclude_missing": true
+                      }
+                  ],
+                  "search": {
+                      "query": "@evt.name:(ApexTrigger OR ApexExecution)"
+                  },
+                  "storage": "hot"
+              }
+          ],
+          "response_format": "timeseries"
+      }
+  ]
+}

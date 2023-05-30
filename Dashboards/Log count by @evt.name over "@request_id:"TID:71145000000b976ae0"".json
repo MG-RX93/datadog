@@ -1,0 +1,44 @@
+{
+  "viz": "timeseries",
+  "requests": [
+      {
+          "style": {
+              "palette": "warm"
+          },
+          "type": "line",
+          "formulas": [
+              {
+                  "formula": "a"
+              }
+          ],
+          "queries": [
+              {
+                  "name": "a",
+                  "data_source": "logs",
+                  "compute": {
+                      "aggregation": "count"
+                  },
+                  "search": {
+                      "query": "@request_id:\"TID:71145000000b976ae0\""
+                  },
+                  "indexes": [
+                      "*"
+                  ],
+                  "group_by": [
+                      {
+                          "facet": "@evt.name",
+                          "limit": 10,
+                          "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                          },
+                          "should_exclude_missing": true
+                      }
+                  ],
+                  "storage": "hot"
+              }
+          ],
+          "response_format": "timeseries"
+      }
+  ]
+}

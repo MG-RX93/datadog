@@ -1,0 +1,46 @@
+{
+  "viz": "timeseries",
+  "requests": [
+      {
+          "style": {
+              "palette": "warm"
+          },
+          "type": "line",
+          "formulas": [
+              {
+                  "formula": "a"
+              }
+          ],
+          "queries": [
+              {
+                  "name": "a",
+                  "data_source": "logs",
+                  "compute": {
+                      "aggregation": "cardinality",
+                      "metric": "@number_of_errors"
+                  },
+                  "search": {
+                      "query": "@event_type:FlowExecution -@number_of_errors:0 @process_type:Workflow"
+                  },
+                  "indexes": [
+                      "*"
+                  ],
+                  "group_by": [
+                      {
+                          "facet": "@process_type",
+                          "limit": 10,
+                          "sort": {
+                              "aggregation": "cardinality",
+                              "order": "desc",
+                              "metric": "@number_of_errors"
+                          },
+                          "should_exclude_missing": true
+                      }
+                  ],
+                  "storage": "hot"
+              }
+          ],
+          "response_format": "timeseries"
+      }
+  ]
+}

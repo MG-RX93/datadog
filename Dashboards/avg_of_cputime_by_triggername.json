@@ -1,0 +1,46 @@
+{
+  "viz": "timeseries",
+  "requests": [
+      {
+          "style": {
+              "palette": "warm"
+          },
+          "type": "line",
+          "formulas": [
+              {
+                  "formula": "a"
+              }
+          ],
+          "queries": [
+              {
+                  "name": "a",
+                  "data_source": "logs",
+                  "compute": {
+                      "aggregation": "avg",
+                      "metric": "@cpu_time"
+                  },
+                  "search": {
+                      "query": ""
+                  },
+                  "indexes": [
+                      "*"
+                  ],
+                  "group_by": [
+                      {
+                          "facet": "@trigger_name",
+                          "limit": 10,
+                          "sort": {
+                              "aggregation": "avg",
+                              "order": "desc",
+                              "metric": "@cpu_time"
+                          },
+                          "should_exclude_missing": true
+                      }
+                  ],
+                  "storage": "hot"
+              }
+          ],
+          "response_format": "timeseries"
+      }
+  ]
+}

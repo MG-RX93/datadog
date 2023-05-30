@@ -1,0 +1,34 @@
+{
+  "viz": "timeseries",
+  "requests": [
+      {
+          "style": {
+              "palette": "warm"
+          },
+          "type": "line",
+          "formulas": [
+              {
+                  "formula": "a"
+              }
+          ],
+          "queries": [
+              {
+                  "name": "a",
+                  "data_source": "logs",
+                  "compute": {
+                      "aggregation": "count"
+                  },
+                  "search": {
+                      "query": "@exception_category:\"LimitException: CpuTime\""
+                  },
+                  "indexes": [
+                      "*"
+                  ],
+                  "group_by": [],
+                  "storage": "hot"
+              }
+          ],
+          "response_format": "timeseries"
+      }
+  ]
+}
